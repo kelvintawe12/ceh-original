@@ -89,10 +89,15 @@ export const Navbar = () => {
               <Link to="/about" className="text-gray-700 hover:text-green-600 transition-colors py-2">
                 About
               </Link>
-              <button className="flex items-center justify-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-full hover:shadow-lg transition-all">
+                <button onClick={() => navigate('/signin')} className="flex items-center justify-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-full hover:shadow-lg transition-all">
                 <User className="h-4 w-4" />
                 <span>Sign In</span>
-              </button>
+                </button>
+                {/* <button onClick={() => navigate('/signup')} className="flex items-center justify-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-full hover:shadow-lg transition-all">
+                <User className="h-4 w-4" />
+                <span>Sign Up</span>
+                </button> */}
+              
             </nav>
           </div>
         </div>}
