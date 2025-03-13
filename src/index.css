@@ -30,3 +30,13 @@
 .wave-hover:hover {
   animation: wave 0.5s ease-in-out;
 }
+
+/* Custom progress ring animation */
+@keyframes progress {
+  from { stroke-dashoffset: 251.2; }
+  to { stroke-dashoffset: 100.48; }
+}
+
+circle[class="text-emerald-600"] {
+  animation: progress 1s ease-out forwards;
+}

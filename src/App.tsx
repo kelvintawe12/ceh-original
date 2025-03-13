@@ -9,7 +9,7 @@ import { Learn } from './pages/Learn';
 import  Collaborate  from './pages/Collaborate';
 import  Events  from './pages/Events';
 import { Map } from './pages/Map';
-import { Rewards } from './pages/Rewards';
+import Rewards from './pages/Rewards';
 import  About  from './pages/About';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
