@@ -1,10 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import * as Icons from 'react-feather';
-
-const Lightbulb = Icons.Lightbulb || Icons.Bulb || Icons.AlertCircle;
-const { MessageSquare, Users, Rocket, Plus } = Icons;
-
+import { MessageSquare, Users, LightbulbIcon, Rocket, Plus } from 'react-feather';
 const Collaborate = () => {
   const discussions = [
     { id: 1, title: 'Campus Upcycling Challenge', comments: 45, author: 'EcoTeam' },
@@ -116,7 +111,7 @@ const Collaborate = () => {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 to-teal-100 opacity-10" />
               <div className="flex items-center gap-3 mb-4">
-                <Lightbulb className="text-emerald-600" />
+                <LightbulbIcon className="text-emerald-600" />
                 <h3 className="text-xl font-semibold">Share Idea</h3>
               </div>
               <motion.div
