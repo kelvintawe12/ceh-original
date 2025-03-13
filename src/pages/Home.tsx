@@ -15,3 +15,6 @@ export const Home = () => {
       <GamificationSection />
     </>;
 };
+
+
+export default Home;
