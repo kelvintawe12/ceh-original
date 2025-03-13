@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MapPin, Users, ArrowRight, Search } from 'react-feather';
 import { Swiper, SwiperSlide } from 'swiper/react';
