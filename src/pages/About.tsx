@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Globe, RefreshCw, Users, Leaf } from 'react-feather';
+import { Globe, RefreshCw, Users } from 'react-feather';
+import { UsersIcon } from 'lucide-react';
 
 const About = () => {
   const teamMembers = [
@@ -12,7 +13,7 @@ const About = () => {
   const values = [
     { icon: <RefreshCw />, title: 'Circular Design', description: 'Promoting zero-waste solutions' },
     { icon: <Users />, title: 'Community', description: 'Connecting sustainability champions' },
-    { icon: <Leaf />, title: 'Innovation', description: 'Pioneering green technologies' },
+    { icon: <UsersIcon />, title: 'Innovation', description: 'Pioneering green technologies' },
   ];
 
   return (
