@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Globe, Recycle, Users, Leaf } from 'react-feather';
+import { Globe, RefreshCw, Users, Leaf } from 'react-feather';
 
 const About = () => {
   const teamMembers = [
@@ -10,7 +10,7 @@ const About = () => {
   ];
 
   const values = [
-    { icon: <Recycle />, title: 'Circular Design', description: 'Promoting zero-waste solutions' },
+    { icon: <RefreshCw />, title: 'Circular Design', description: 'Promoting zero-waste solutions' },
     { icon: <Users />, title: 'Community', description: 'Connecting sustainability champions' },
     { icon: <Leaf />, title: 'Innovation', description: 'Pioneering green technologies' },
   ];
