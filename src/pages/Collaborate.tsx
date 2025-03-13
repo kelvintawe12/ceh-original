@@ -1,4 +1,4 @@
-import React from 'react';
+import  ReactDOM  from 'react-dom';
 import { motion } from 'framer-motion';
 import { MessageSquare, Users, Plus } from 'react-feather';
 
@@ -104,8 +104,11 @@ const Collaborate = () => {
                   >
                     <h4 className="font-medium mb-2">{discussion.title}</h4>
                     <div className="flex flex-wrap gap-2 mb-3">
-                      {discussion.tags.map((tag) => (
-                        <span className="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 px-2 py-1 rounded-full">
+                      {discussion.tags.map((tag, index) => (
+                        <span 
+                          key={index}
+                          className="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 px-2 py-1 rounded-full"
+                        >
                           {tag}
                         </span>
                       ))}
@@ -155,8 +158,7 @@ const Collaborate = () => {
               className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 to-teal-100 opacity-10 dark:opacity-5" />
-              <div className="flex items-center gap-3 mb-4">
-                <Lightbulb className="text-emerald-600" />
+              <div className="mb-4">
                 <h3 className="text-xl font-semibold">Innovation Incubator</h3>
               </div>
               <motion.div
