@@ -1,6 +1,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import 'swiper/css';
+@import 'swiper/css/effect-cards';
 
 
 @keyframes float {
@@ -28,6 +30,3 @@
 .wave-hover:hover {
   animation: wave 0.5s ease-in-out;
 }
-
-@import 'swiper/css';
-@import 'swiper/css/effect-cards';
