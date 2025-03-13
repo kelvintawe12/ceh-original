@@ -1,6 +1,7 @@
-import  ReactDOM  from 'react-dom';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Users, Plus } from 'react-feather';
+import { Joystick } from 'lucide-react';
 
 const Collaborate = () => {
   const discussions = [
@@ -181,7 +182,7 @@ const Collaborate = () => {
                   ))}
                 </div>
                 <button className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition-all flex items-center justify-center gap-2">
-                  <Rocket size={18} />
+                  <Joystick size={18} />
                   Launch Idea
                 </button>
               </motion.div>
