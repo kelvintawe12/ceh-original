@@ -21,7 +21,7 @@ The Circular Economy Hub (CEH) is designed to provide resources, tools, and a co
 ### Installation Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/ceh-hub.git
+   git clone https://github.com/kelvintawe12/ceh-hub.git
    cd ceh-hub
    ```
 2. Install dependencies:
