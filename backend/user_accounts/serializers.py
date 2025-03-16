@@ -80,10 +80,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-class ProfilePhotoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProfilePhoto
-        fields = ["file"]
+# class ProfilePhotoSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = ProfilePhoto
+#         fields = ["file"]
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
