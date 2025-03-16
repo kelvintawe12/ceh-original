@@ -18,7 +18,7 @@ Setup Instructions
 
 ## Clone the Repository
 
-git clone "https://github.com/kelvintawe12/ceh-original.git"
+git clone 'https://github.com/kelvintawe12/ceh-original.git'
 cd circular-economy-hub
 
 ## Create and Activate Virtual Environment
@@ -44,33 +44,33 @@ Create a .env file in the root of the project if it doesn’t already exist and 
 SECRET_KEY='django-insecure-!a*ea8!+&3xzved!_uu6mt2mzvm3&7nz&ls0oal@w83x^^qj!s'
 DEBUG=True
 
-5. Apply Migrations
+## Apply Migrations
 
 python manage.py migrate
 
-6. Create a Superuser (Optional, for Admin Access)
+## Create a Superuser (Optional, for Admin Access)
 
 python manage.py createsuperuser
 
 Follow the prompts to set up an admin user.
 
-7. Run the Development Server
+## Run the Development Server
 
 python manage.py runserver
 
 Access the project at http://127.0.0.1:8000/.
 
-Additional Commands
+## Additional Commands
 
 Running Tests
 
 python manage.py test
 
-Collecting Static Files
+## Collecting Static Files
 
 python manage.py collectstatic
 
-Contributing
+## Contributing
 
 Feel free to fork this project and submit pull requests!
 
