@@ -1,4 +1,4 @@
-Circular Economy Hub
+## Circular Economy Hub
 
 This guide provides step-by-step instructions to set up the Circular Economy Hub Django project on your local machine.
 
@@ -6,22 +6,22 @@ Prerequisites
 
 Ensure you have the following installed:
 
-Python (>=3.8)
+ Python (>=3.8)
 
-pip (Python package manager)
+ pip (Python package manager)
 
-virtualenv (for creating virtual environments)
+## virtualenv (for creating virtual environments)
 
 PostgreSQL or SQLite (depending on project settings)
 
 Setup Instructions
 
-1. Clone the Repository
+## Clone the Repository
 
-git clone <repository_url>
+git clone "https://github.com/kelvintawe12/ceh-original.git"
 cd circular-economy-hub
 
-2. Create and Activate Virtual Environment
+## Create and Activate Virtual Environment
 
 On macOS/Linux:
 
@@ -33,11 +33,11 @@ On Windows:
 python -m venv venv
 venv\Scripts\activate
 
-3. Install Dependencies
+## Install Dependencies
 
 pip install -r requirements.txt
 
-4. Setup Environment Variables
+## Setup Environment Variables
 
 Create a .env file in the root of the project if it doesn’t already exist and add the following:
 
