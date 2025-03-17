@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Users, Calendar, Map, Award, Settings, User } from 'lucide-react';
+import { Home, BookOpen, Users, Calendar, Map, Award, Settings, User, Book, BookOpenCheckIcon } from 'lucide-react';
+import { circle } from 'framer-motion/client';
 type DashboardSidebarProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -38,6 +39,11 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     name: 'Profile',
     icon: User,
     href: '/dashboard/profile'
+  
+  }, {
+    name: 'Notifications',
+    icon: BookOpenCheckIcon,
+    href: '/dashboard/notifications'
   }, {
     name: 'Settings',
     icon: Settings,
@@ -76,4 +82,6 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         </div>
       </aside>
     </>;
+
+    
 };
