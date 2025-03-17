@@ -47,7 +47,7 @@ export const DashboardLayout: React.FC<{
                   <button onClick={toggleTheme} className="p-2 rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none transition-colors duration-200">
                     {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                   </button>
-                  <NotificationsDropdown isOpen={isNotificationsOpen} setIsOpen={setIsNotificationsOpen} />
+                  <NotificationsDropdown isOpen={isNotificationsOpen} setIsOpen={setIsNotificationsOpen} openSidebar={() => setIsSidebarOpen(true)} />
                   <div className="relative">
                     <button className="flex items-center space-x-3 focus:outline-none">
                       <img src={user?.avatar} alt={user?.fullName} className="h-8 w-8 rounded-full object-cover" />

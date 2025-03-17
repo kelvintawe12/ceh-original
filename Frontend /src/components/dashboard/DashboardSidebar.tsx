@@ -41,7 +41,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   }, {
     name: 'Settings',
     icon: Settings,
-    href: '/dashboard/settings'
+    href: '/dashboard/Settings'
   }];
   return <>
       {/* Overlay */}
