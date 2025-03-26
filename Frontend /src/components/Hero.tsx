@@ -34,7 +34,7 @@ export const Hero = () => {
         <div className="mt-16 relative">
           <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent z-10 h-20 bottom-0 left-0 right-0"></div>
           <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-4xl mx-auto">
-            <img src="https://images.unsplash.com/photo-1536856136534-bb679c52a9aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Students collaborating on circular economy projects" className="w-full h-auto object-cover" />
+            {/* <img src="https://images.unsplash.com/photo-1536856136534-bb679c52a9aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Students collaborating on circular economy projects" className="w-full h-auto object-cover" /> */}
           </div>
         </div>
       </div>
