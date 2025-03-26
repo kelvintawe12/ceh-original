@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -11,57 +11,69 @@ import  Events  from './pages/Events';
 import  Map  from './pages/Map';
 import Rewards from './pages/Rewards';
 import  About  from './pages/About';
+// import { getToken } from './api';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { PrivateRoute } from './components/PrivateRoute';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { Overview } from './pages/dashboard/Overview';
+
 export function App() {
-  return <AuthProvider>
+  return(
+    <AuthProvider>
       <ThemeProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<div className="min-h-screen bg-gradient-to-b from-white to-green-50 flex flex-col">
+            <Route path="/" element={
+              <div className="min-h-screen bg-gradient-to-b from-white to-green-50 flex flex-col">
                   <Navbar />
                   <main className="flex-grow">
                     <Home />
                   </main>
                   <Footer />
-                </div>} />
+              </div>
+              } />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/dashboard" element={<PrivateRoute>
-                  <DashboardLayout>
-                    <Overview />
-                  </DashboardLayout>
-                </PrivateRoute>} />
-            <Route path="/dashboard/learn" element={<PrivateRoute>
-                  <DashboardLayout>
-                    <Learn />
-                  </DashboardLayout>
-                </PrivateRoute>} />
-            <Route path="/dashboard/collaborate" element={<PrivateRoute>
-                  <DashboardLayout>
-                    <Collaborate />
-                  </DashboardLayout>
-                </PrivateRoute>} />
-            <Route path="/dashboard/events" element={<PrivateRoute>
-                  <DashboardLayout>
-                    <Events />
-                  </DashboardLayout>
-                </PrivateRoute>} />
-            <Route path="/dashboard/map" element={<PrivateRoute>
-                  <DashboardLayout>
-                    <Map />
-                  </DashboardLayout>
-                </PrivateRoute>} />
-            <Route path="/dashboard/rewards" element={<PrivateRoute>
-                  <DashboardLayout>
-                    <Rewards />
-                  </DashboardLayout>
-                </PrivateRoute>} />
-            <Route path="/*" element={<div className="min-h-screen bg-gradient-to-b from-white to-green-50 flex flex-col">
-                  <Navbar />
+            <Route path="/dashboard" element={
+              <PrivateRoute>
+                <DashboardLayout>
+                  <Overview />
+                </DashboardLayout>
+              </PrivateRoute>} />
+            <Route path="/dashboard/learn" element={
+              <PrivateRoute>
+                <DashboardLayout>
+                  <Learn />
+                </DashboardLayout>
+              </PrivateRoute>} />
+            <Route path="/dashboard/collaborate" element={
+              <PrivateRoute>
+                <DashboardLayout>
+                  <Collaborate />
+                </DashboardLayout>
+              </PrivateRoute>} />
+            <Route path="/dashboard/events" element={
+              <PrivateRoute>
+                <DashboardLayout>
+                  <Events />
+                </DashboardLayout>
+              </PrivateRoute>} />
+            <Route path="/dashboard/map" element={
+              <PrivateRoute>
+                <DashboardLayout>
+                  <Map />
+                </DashboardLayout>
+              </PrivateRoute>} />
+            <Route path="/dashboard/rewards" element={
+              <PrivateRoute>
+                <DashboardLayout>
+                  <Rewards />
+                </DashboardLayout>
+              </PrivateRoute>} />
+            <Route path="/*" element={
+              <div className="min-h-screen bg-gradient-to-b from-white to-green-50 flex flex-col">
+                <Navbar />
                   <main className="flex-grow">
                     <Routes>
                       <Route path="/learn" element={<Learn />} />
@@ -78,7 +90,8 @@ export function App() {
           </Routes>
         </Router>
       </ThemeProvider>
-    </AuthProvider>;
+    </AuthProvider>
+  );
 }
 
 export default App;

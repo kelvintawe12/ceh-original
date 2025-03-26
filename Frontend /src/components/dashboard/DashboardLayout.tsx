@@ -6,6 +6,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { DashboardSidebar } from './DashboardSidebar';
 import { NotificationsDropdown } from './NotificationsDropdown';
 import { SearchBar } from './SearchBar';
+
 export const DashboardLayout: React.FC<{
   children: React.ReactNode;
 }> = ({
