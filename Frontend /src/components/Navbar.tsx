@@ -31,7 +31,7 @@ export const Navbar = () => {
   return(
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white bg-opacity-90 shadow-md' : 'bg-transparent'
+        isScrolled ? 'bg-green-100  shadow-md ' : ''
         }`}
     >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -80,9 +80,9 @@ export const Navbar = () => {
           <Link to="/about" className="text-gray-700 hover:text-green-600 transition-colors">
             About
           </Link>
-          <Link to="/dashboard/profile" className="text-gray-700 hover:text-green-600 transition-colors">
+          {/* <Link to="/dashboard/profile" className="text-gray-700 hover:text-green-600 transition-colors">
             Profile
-          </Link>
+          </Link> */}
           <Link to="/dashboard/notifications" className="text-gray-700 hover:text-green-600 transition-colors">
             Notifications
           </Link>
