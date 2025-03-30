@@ -108,17 +108,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("access_token");
-        console.log("🔍 Token before request:", token); // ✅ Check if token exists
+        console.log("🔍 Token before request:", token);
   
         if (!token) {
           console.error("🚨 Token is missing! Cannot fetch user data.");
+          setUser(null);
           return;
         }
   
-        const response = await api.get(`/account/profile`);
-        setUser(response.data);
+        const response = await api.get(`/account/session`, {
+          headers: { Authorization: `Token ${token}` } // ✅ Ensure token is sent in header
+        });
+  
+        const { data } = response;
+        const user = data?.data?.user || null;
+        const accessToken = data?.data?.access_token; 
+  
+        if (user && accessToken) {
+          localStorage.setItem("access_token", accessToken);
+          setUser({ ...user, token: accessToken }); // ✅ Ensure `token` is attached to user object
+          console.log("✅ User session restored:", { ...user, token: accessToken });
+        } else {
+          throw new Error("Invalid session response");
+        }
       } catch (error) {
-        console.error("❌ Failed to fetch user:", error);
+        console.error("❌ Failed to restore session:", error);
+        setUser(null);
+        localStorage.removeItem("access_token"); // ✅ Clear token if session invalid
       }
     };
   
@@ -126,25 +142,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
   
   
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        const token = localStorage.getItem("access_token"); // ✅ Read from localStorage
-        if (!token) throw new Error("No token found");
-  
-        const response = await api.get("/account/session");
-        setUser(response.data.user);
-      } catch (err) {
-        console.error("🚨 Not authenticated:", err);
-        setUser(null);
-        localStorage.removeItem("access_token"); // ✅ Clear token if invalid
-      }
-    };
-  
-    checkAuthStatus();
-  }, []);
-  
-  
+
   
   
   
@@ -154,7 +152,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       user, 
       login, 
       logout, 
-      isAuthenticated: !!user,
+      isAuthenticated: !!user && !!user.token,
       registerUser 
     }}>
       {children}
@@ -169,3 +167,4 @@ export const useAuth = () => {
   }
   return context;
 };
+

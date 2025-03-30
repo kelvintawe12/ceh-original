@@ -157,11 +157,22 @@ class SessionView(APIView):
 
     def get(self, request):
         user = request.user
+        
+        if user:
+            token = Token.objects.get(user=user)
+            
         return Response({
-            "user": {
-                "id": user.id,
-                "full_name": user.full_name,
-                "email": user.email,
-                "role": user.role,
+            "message": "Login successful",
+            "status": "success",
+            "data": {
+                "user": {
+                    "id": user.id,
+                    "full_name": user.full_name,
+                    "email": user.email
+                },
+                "access_token": token.key,  # ✅ Return token in response
+                "refresh_token": "dummy-refresh-token"
             }
         })
+    
+
