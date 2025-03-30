@@ -77,6 +77,9 @@ class LoginView(APIView):
             "status": "error",
             "errors": {"email": "Invalid email or password"}
         }, status=status.HTTP_400_BAD_REQUEST)
+    
+
+    
 class RegisterView(generics.GenericAPIView):
     """Handles user registration"""
 
