@@ -32,25 +32,28 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
+  // ✅ Login Function
   const login = async (email: string, password: string) => {
     try {
-      const response = await api.post(`/account/login`, { email, password });
+      const response = await api.post(`/account/login`, { email, password }); // ✅ Use api instead of axios
   
       if (response.status === 200) {
         const { data } = response;
         const user = data?.data?.user || null;
   
         if (user) {
-          setUser(user);
+          setUser(user); // ✅ Set user state
         } else {
           throw new Error("Invalid response from server");
         }
       }
     } catch (error: any) {
+      console.error("❌ Login Error:", error.response?.data?.message || "Failed to login.");
       throw new Error(error.response?.data?.message || "Failed to login.");
     }
   };
 
+  // ✅ Register Function
   const registerUser = async (userData: RegisterUserData) => {
     try {
       const response = await api.post(`/account/register`, {
@@ -60,34 +63,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         password2: userData.confirmPassword,
         role: userData.role,
         institution: userData.institution,
-      });
+      }); // ✅ Use api instead of axios
 
       if (response.status === 201) {
+        console.log("✅ Registration successful:", response.data.message);
         return response.data.message;
       } else {
         throw new Error(response.data?.message || "Unexpected response from server");
       }
     } catch (error: any) {
+      console.error("❌ Registration Error:", error.response?.data?.message || "Failed to register.");
       throw new Error(error.response?.data?.message || "Failed to register.");
     }
   };
 
+  // ✅ Logout Function
   const logout = async () => {
     try {
-      await api.post(`/account/logout`);
+      await api.post(`/account/logout`); // ✅ Use api instead of axios
       setUser(null);
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error("❌ Logout failed:", error);
     }
   };
 
+  // ✅ Restore Login on Refresh
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await api.get(`/account/profile`);
+        const response = await api.get(`/account/profile`); // ✅ Fetch user from API
         setUser(response.data);
       } catch (error) {
-        console.error("Failed to restore session:", error);
+        console.error("❌ Failed to restore session:", error);
       }
     };
 
@@ -100,7 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const response = await api.get("/account/session");
         setUser(response.data.user);
       } catch (err) {
-        console.error("Not authenticated:", err);
+        console.error("🚨 Not authenticated:", err);
         setUser(null);
       }
     };
