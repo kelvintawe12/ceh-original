@@ -13,7 +13,7 @@ type FormErrors = {
 export const SignIn = () => {
   const { user, login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); // Get location state
   const [signupMessage, setSignupMessage] = useState<string | null>(location.state?.message || null);
 
   useEffect(() => {
@@ -27,10 +27,10 @@ export const SignIn = () => {
     if (signupMessage) {
       const timer = setTimeout(() => {
         setSignupMessage(null);
-        navigate(".", { replace: true, state: {} });
+        navigate(".", { replace: true, state: {} }); // Clear state from URL
       }, 5000);
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer); // Cleanup function
     }
   }, [signupMessage, navigate]);
 
@@ -74,6 +74,7 @@ export const SignIn = () => {
       await login(formData.email, formData.password);
       navigate("/dashboard", { replace: true });
     } catch (error) {
+      console.error("Login error:", error);
       setErrors({
         general: error?.response?.data?.message || "Invalid email or password. Please try again.",
       });
@@ -123,7 +124,7 @@ export const SignIn = () => {
               {errors.general}
             </div>
           )}
-          {signupMessage && (
+          {signupMessage && ( // Display the signup success message
             <div className="mb-4 bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-lg flex items-center">
               {signupMessage}
             </div>

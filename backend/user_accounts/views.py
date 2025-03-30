@@ -40,7 +40,7 @@ class LoginView(APIView):
         if user:
             token, _ = Token.objects.get_or_create(user=user)
 
-            response = Response({
+            return Response({
                 "message": "Login successful",
                 "status": "success",
                 "data": {
@@ -48,38 +48,19 @@ class LoginView(APIView):
                         "id": user.id,
                         "full_name": user.full_name,
                         "email": user.email
-                    }
+                    },
+                    "access_token": token.key,  # ✅ Return token in response
+                    "refresh_token": "dummy-refresh-token"
                 }
             }, status=status.HTTP_200_OK)
-
-            response.set_cookie(
-                key="access_token",
-                value=token.key,
-                httponly=True,
-                secure=settings.DEBUG is False,
-                samesite="Lax",
-                max_age=60 * 60 * 24
-            )
-
-            response.set_cookie(
-                key="refresh_token",
-                value="dummy-refresh-token",
-                httponly=True,
-                secure=settings.DEBUG is False,
-                samesite="Lax",
-                max_age=60 * 60 * 24 * 7
-            )
-
-            return response
 
         return Response({
             "message": "Invalid credentials",
             "status": "error",
             "errors": {"email": "Invalid email or password"}
         }, status=status.HTTP_400_BAD_REQUEST)
-    
 
-    
+
 class RegisterView(generics.GenericAPIView):
     """Handles user registration"""
 

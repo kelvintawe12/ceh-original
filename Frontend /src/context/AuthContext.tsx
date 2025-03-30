@@ -35,14 +35,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // ✅ Login Function
   const login = async (email: string, password: string) => {
     try {
-      const response = await api.post(`/account/login`, { email, password }); // ✅ Use api instead of axios
+      const response = await api.post(`/account/login`, { email, password });
   
       if (response.status === 200) {
         const { data } = response;
         const user = data?.data?.user || null;
+        const accessToken = data?.data?.access_token; // Ensure backend sends this
   
-        if (user) {
-          setUser(user); // ✅ Set user state
+        if (user && accessToken) {
+          const userData = { ...user, token: accessToken }; // ✅ Attach token to user
+  
+          localStorage.setItem("access_token", accessToken);
+          setUser(userData);
+  
+          console.log("✅ User logged in:", userData);
         } else {
           throw new Error("Invalid response from server");
         }
@@ -52,7 +58,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw new Error(error.response?.data?.message || "Failed to login.");
     }
   };
-
+  
+  
   // ✅ Register Function
   const registerUser = async (userData: RegisterUserData) => {
     try {
@@ -63,57 +70,83 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         password2: userData.confirmPassword,
         role: userData.role,
         institution: userData.institution,
-      }); // ✅ Use api instead of axios
-
+      });
+  
       if (response.status === 201) {
         console.log("✅ Registration successful:", response.data.message);
-        return response.data.message;
+        return response.data; // Return full response data
       } else {
         throw new Error(response.data?.message || "Unexpected response from server");
       }
     } catch (error: any) {
-      console.error("❌ Registration Error:", error.response?.data?.message || "Failed to register.");
-      throw new Error(error.response?.data?.message || "Failed to register.");
+      console.error("❌ Registration Error:", error.response?.data || "Failed to register.");
+      
+      // Return the full error response instead of throwing an error
+      return error.response?.data || { message: "Failed to register", status: "error" };
     }
   };
+  
+  
+  
 
   // ✅ Logout Function
   const logout = async () => {
     try {
-      await api.post(`/account/logout`); // ✅ Use api instead of axios
-      setUser(null);
+      await api.post(`/account/logout`);
     } catch (error) {
       console.error("❌ Logout failed:", error);
+    } finally {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      setUser(null);
     }
   };
+  
 
   // ✅ Restore Login on Refresh
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await api.get(`/account/profile`); // ✅ Fetch user from API
+        const token = localStorage.getItem("access_token");
+        console.log("🔍 Token before request:", token); // ✅ Check if token exists
+  
+        if (!token) {
+          console.error("🚨 Token is missing! Cannot fetch user data.");
+          return;
+        }
+  
+        const response = await api.get(`/account/profile`);
         setUser(response.data);
       } catch (error) {
-        console.error("❌ Failed to restore session:", error);
+        console.error("❌ Failed to fetch user:", error);
       }
     };
-
+  
     fetchUser();
   }, []);
-
+  
+  
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
+        const token = localStorage.getItem("access_token"); // ✅ Read from localStorage
+        if (!token) throw new Error("No token found");
+  
         const response = await api.get("/account/session");
         setUser(response.data.user);
       } catch (err) {
         console.error("🚨 Not authenticated:", err);
         setUser(null);
+        localStorage.removeItem("access_token"); // ✅ Clear token if invalid
       }
     };
   
     checkAuthStatus();
   }, []);
+  
+  
+  
+  
   
 
   return (

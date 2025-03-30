@@ -143,6 +143,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "user_accounts.User"
 
+from datetime import timedelta
+from corsheaders.defaults import default_headers
+
 # REST Framework settings
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -152,10 +155,7 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
-
 SPECTACULAR_SETTINGS = {"TITLE": "Circular Economy Hub API Docs"}
-
-REST_USE_JWT = True
 
 SIMPLE_JWT = {
     "TOKEN_OBTAIN_SERIALIZER": "utils.jwt.CustomTokenObtainPairSerializer",
@@ -169,28 +169,34 @@ DRF_STANDARDIZED_ERRORS = {
     "EXCEPTION_FORMATTER_CLASS": "utils.errors.MyExceptionFormatter",
 }
 
+# CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = True
-
-ROOT_URLCONF = "config.urls"
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
-EMAIL_HOST = '127.0.0.1'
-EMAIL_PORT = 1025
-
-SITE_ID = 1
-
-
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = (
     *default_headers,
     "x-client-id",
 )
 
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = True
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
-CORS_ALLOW_CREDENTIALS = True
 
+CORS_ALLOW_ORIGINS = [
+    "http://localhost:5173",
+]
+
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = False
+
+
+# CSRF Trusted Origins (for admin panel or non-authenticated endpoints)
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+
+# Email Configuration (for testing)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = '127.0.0.1'
+EMAIL_PORT = 1025
+
+# CKEditor 5 Configuration (if used)
 CKEDITOR_5_CONFIGS = {
     "default": {
         "toolbar": [
