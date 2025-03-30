@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "django_ckeditor_5",
     'core',
     'user_accounts',
-    'blog',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -146,11 +146,12 @@ AUTH_USER_MODEL = "user_accounts.User"
 # REST Framework settings
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ),
     "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
 
 SPECTACULAR_SETTINGS = {"TITLE": "Circular Economy Hub API Docs"}
 
@@ -172,11 +173,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = "config.urls"
 
-FRONTEND_URL = config("FRONTEND_URL", "localhost:3000")
-
-FRONTEND_PASSWORD_RESET_URL = config(
-    'FRONTEND_PASSWORD_RESET_URL', 'http://localhost:3000/accounts/password-reset')
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
 EMAIL_HOST = '127.0.0.1'
@@ -189,6 +185,11 @@ CORS_ALLOW_HEADERS = (
     *default_headers,
     "x-client-id",
 )
+
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+CORS_ALLOW_CREDENTIALS = True
 
 CKEDITOR_5_CONFIGS = {
     "default": {

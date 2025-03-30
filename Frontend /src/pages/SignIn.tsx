@@ -1,8 +1,7 @@
 import React, { useEffect , useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Mail, Lock, ArrowRight, AlertCircle } from "lucide-react";
 import { useAuth } from '../context/AuthContext';
-
 
 type FormErrors = {
   email?: string;
@@ -14,13 +13,26 @@ type FormErrors = {
 export const SignIn = () => {
   const { user, login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [signupMessage, setSignupMessage] = useState<string | null>(location.state?.message || null);
 
   useEffect(() => {
     if (user) {
       navigate("/dashboard", { replace: true });
     }
   }, [user, navigate]);
+
   
+  useEffect(() => {
+    if (signupMessage) {
+      const timer = setTimeout(() => {
+        setSignupMessage(null);
+        navigate(".", { replace: true, state: {} });
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [signupMessage, navigate]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -30,17 +42,20 @@ export const SignIn = () => {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+  
+  useEffect(() => {
+      setIsFormValid(validateForm());
+    }, [formData]);
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
-    // Email validation
-    if (!formData.email) {
+    if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+      newErrors.email = "Invalid email format";
     }
-    // Password validation
-    if (!formData.password) {
+    if (!formData.password.trim()) {
       newErrors.password = "Password is required";
     }
     setErrors(newErrors);
@@ -51,30 +66,28 @@ export const SignIn = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+
     setIsLoading(true);
+    setErrors({});
   
     try {
-      const response = await login(formData.email, formData.password);
-      console.log("Login successful:", response);
-  
-      // ✅ No need for setIsAuthenticated, AuthContext manages user state
+      await login(formData.email, formData.password);
       navigate("/dashboard", { replace: true });
-  
     } catch (error) {
-      console.error("Login error:", error);
-      setErrors({ general: "Invalid email or password. Try using test accounts." });
+      setErrors({
+        general: error?.response?.data?.message || "Invalid email or password. Please try again.",
+      });
     } finally {
       setIsLoading(false);
     }
   };  
   
   
-  
-  
 
   return (
     <div className="min-h-screen pt-24 pb-12 flex flex-col justify-center bg-gradient-to-b from-green-50 to-blue-50">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        
         <div className="flex justify-center">
           <div className="h-12 w-12 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
             <svg
@@ -108,6 +121,11 @@ export const SignIn = () => {
             <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg flex items-center">
               <AlertCircle className="h-5 w-5 mr-2" />
               {errors.general}
+            </div>
+          )}
+          {signupMessage && (
+            <div className="mb-4 bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-lg flex items-center">
+              {signupMessage}
             </div>
           )}
           <form className="space-y-6" onSubmit={handleSubmit}>
