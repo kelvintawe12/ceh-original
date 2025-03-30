@@ -1,18 +1,78 @@
-# Pages Directory
+# Circular Economy Hub
 
-This directory contains individual page components for routing within the application. Each page is a separate route in the application.
+## Overview
+The Circular Economy Hub is a platform designed to facilitate collaboration, education, and impact tracking for circular economy initiatives. This project aims to create a centralized hub for sustainability efforts, enabling users to engage with various projects and events.
 
-## Files
-- **About.tsx**: About page component.
-- **Collaborate.tsx**: Collaboration page component.
-- **Events.tsx**: Events page component.
-- **Home.tsx**: Home page component.
-- **Learn.tsx**: Learning resources page component.
-- **Map.tsx**: Interactive map page component.
-- **Rewards.tsx**: Rewards page component.
-- **SignIn.tsx**: Sign-in page component.
-- **SignUp.tsx**: Sign-up page component.
-- **dashboard/**: Contains dashboard-related pages.
-  - **Overview.tsx**: Overview page for the dashboard.
-  - **Profile.tsx**: User profile page.
-  - **Settings.tsx**: Settings page for user preferences.
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Features
+- User registration and authentication
+- Project and event management
+- Dashboard for tracking activities
+- Reward system for participation
+- API for external integrations
+
+## Technologies Used
+- **Frontend**: React, TypeScript, TailwindCSS
+- **Backend**: Python, Django REST Framework
+- **Database**: SQLite3
+- **Deployment**: Vercel
+
+## Installation
+To set up the project locally, follow these steps:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/kelvintawe12/ceh-original.git
+   cd ceh-original
+   ```
+
+2. **Create and activate a virtual environment**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+
+3. **Install requirements**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run database migrations**:
+   ```bash
+   python manage.py migrate
+   ```
+
+5. **Start the server**:
+   ```bash
+   python manage.py runserver
+   ```
+
+6. **Run the frontend**:
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+## Usage
+- **Sign Up**: Create an account to start participating in projects and events.
+- **Login**: Access your dashboard to view ongoing activities and manage your profile.
+- **Participate**: Join projects, submit ideas, and earn rewards for your contributions.
+
+## Contributing
+Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+For any inquiries, please reach out to us at circularhub@gmail.com.
+
+Thank you for your interest in the Circular Economy Hub!
