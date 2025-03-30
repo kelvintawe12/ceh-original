@@ -3,40 +3,48 @@ import { Calendar, Clock, MapPin, Users, ArrowRight, Search } from 'react-feathe
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
+import { useEffect, useState } from "react";
+import api from "../utils/axiosConfig";
+
+
 
 const Events = () => {
-  const events = [
-    {
-      id: 1,
-      title: "Circular Design Workshop",
-      date: "15 OCT",
-      location: "Innovation Hub",
-      time: "10:00 AM",
-      attendees: 45,
-      image: "url-to-workshop-image",
-      type: "workshop"
-    },
-    {
-      id: 2,
-      title: "Zero Waste Hackathon",
-      date: "20-22 OCT",
-      location: "Virtual Event",
-      time: "All Day",
-      attendees: 120,
-      image: "url-to-hackathon-image",
-      type: "hackathon"
-    },
-    {
-      id: 3,
-      title: "Sustainable Tech Conference",
-      date: "28 OCT",
-      location: "Convention Center",
-      time: "9:00 AM",
-      attendees: 300,
-      image: "url-to-conference-image",
-      type: "conference"
-    }
-  ];
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [pastEvents, setPastEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await api.get(`/events`);
+
+        if (!response.data) {
+          throw new Error("Invalid API response structure");
+        }
+
+        setUpcomingEvents(response.data.upcoming_events || []);
+        setPastEvents(response.data.past_events || []);
+      } catch (err) {
+        setError("Failed to load event data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+
+  if (loading) {
+    return <div className="text-center">Loading event...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-center">{error}</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -122,7 +130,7 @@ const Events = () => {
             grabCursor={true}
             className="swiper-events"
           >
-            {events.map((event) => (
+            {upcomingEvents.map((event) => (
               <SwiperSlide key={event.id}>
                 <motion.div 
                   whileHover={{ scale: 1.02 }}
@@ -137,7 +145,7 @@ const Events = () => {
                   <div className="p-6">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="bg-emerald-600 text-white px-4 py-2 rounded-xl">
-                        {event.date}
+                        {new Date(event.start_datetime).toLocaleDateString()}
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-300">
                         <Users size={16} />
@@ -152,7 +160,7 @@ const Events = () => {
                       </div>
                       <div className="flex items-center gap-2">
                         <Clock className="text-emerald-400" />
-                        <span className="text-gray-300">{event.time}</span>
+                        <span className="text-gray-300">{new Date(event.start_datetime).toLocaleTimeString()}</span>
                       </div>
                     </div>
                     <button className="mt-6 w-full bg-emerald-600 text-white py-3 rounded-xl hover:bg-emerald-700 transition-all">
@@ -198,7 +206,7 @@ const Events = () => {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-gray-800 dark:text-white">Past Highlights</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[1, 2, 3, 4].map((item) => (
+            {pastEvents.map((item) => (
               <motion.div
                 key={item}
                 whileHover={{ y: -10 }}

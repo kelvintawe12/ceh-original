@@ -11,7 +11,6 @@ import  Events  from './pages/Events';
 import  Map  from './pages/Map';
 import Rewards from './pages/Rewards';
 import  About  from './pages/About';
-// import { getToken } from './api';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { PrivateRoute } from './components/PrivateRoute';

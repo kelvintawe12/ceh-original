@@ -1,27 +1,46 @@
 import { motion } from 'framer-motion';
-import { BookOpen, GraduationCap, Globe, ArrowRight } from 'lucide-react';
+import { BookOpen, Video, Link, FileText, ArrowRight } from 'lucide-react';
+import { useEffect, useState } from "react";
+import api from "../utils/axiosConfig";
+
 
 export const Learn = () => {
-  const resources = [
-    {
-      title: "Beginner’s Guide to Circular Economy",
-      description: "Master the fundamentals of circular economy principles and sustainable practices.",
-      icon: <BookOpen className="w-6 h-6" />,
-      image: "path/to/image1.jpg"
-    },
-    {
-      title: "Latest Research Reports",
-      description: "Access cutting-edge research and global findings in sustainability.",
-      icon: <GraduationCap className="w-6 h-6" />,
-      image: "path/to/image2.jpg"
-    },
-    {
-      title: "Campus Zero-Waste Initiatives",
-      description: "Discover successful campus sustainability programs worldwide.",
-      icon: <Globe className="w-6 h-6" />,
-      image: "path/to/image3.jpg"
-    }
-  ];
+  const [resources, setResourceData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  const resourceIcons = {
+    document: <BookOpen className="w-6 h-6 text-white" />,
+    video: <Video className="w-6 h-6 text-white" />,
+    link: <Link className="w-6 h-6 text-white" />,
+    other: <FileText className="w-6 h-6 text-white" />,
+  };
+
+  useEffect(() => {
+
+    const fetchResourceData = async () => {
+      try {
+        const response = await api.get(`/resources`);
+        setResourceData(response.data.data);
+      } catch (err) {
+        setError("Failed to load resource data");
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchResourceData();
+  }, []);
+  
+
+  if (loading) {
+    return <div className="text-center">Loading resource...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-center">{error}</div>;
+  }
 
   return (
     <div className="min-h-screen pt-24 pb-12 bg-gradient-to-b from-teal-50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -51,7 +70,7 @@ export const Learn = () => {
             >
               <div className="relative h-48 overflow-hidden">
                 <img 
-                  src={resource.image} 
+                  src={resource.file} 
                   alt={resource.title}
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300 grayscale group-hover:grayscale-0"
                 />
@@ -69,8 +88,15 @@ export const Learn = () => {
                   {resource.description}
                 </p>
                 <div className="flex items-center gap-2 text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors">
-                  <span className="font-medium">Explore Resource</span>
-                  <ArrowRight className="w-4 h-4 mt-0.5 transform group-hover:translate-x-1 transition-transform" />
+                  <a
+                    href={resource.link || `/resources/${resource.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <span className="font-medium">Explore Resource</span>
+                    <ArrowRight className="w-4 h-4 mt-0.5 transform group-hover:translate-x-1 transition-transform" />
+                  </a>
                 </div>
               </div>
 
