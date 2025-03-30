@@ -36,6 +36,7 @@ class Command(BaseCommand):
                 location=fake.city(),
                 organizer=random.choice(users),
                 partner_org=random.choice(organizations),
+                attendees=random.randint(1, 100),
                 is_public=True,
                 is_approved=True,
             ) for _ in range(5)

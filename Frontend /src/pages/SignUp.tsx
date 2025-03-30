@@ -24,6 +24,8 @@ export const SignUp = () => {
       navigate("/dashboard", { replace: true });
     }
   }, [user, navigate]);
+
+
   
   
   const [formData, setFormData] = useState({
@@ -35,7 +37,18 @@ export const SignUp = () => {
     institution: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [backendErrors, setBackendErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (Object.keys(backendErrors).length > 0) {
+      const timer = setTimeout(() => {
+        setBackendErrors({});
+      }, 5000); // Clear errors after 5 seconds
+  
+      return () => clearTimeout(timer); // Cleanup on unmount or re-trigger
+    }
+  }, [backendErrors]);
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
@@ -48,6 +61,7 @@ export const SignUp = () => {
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
     if (!formData.institution.trim()) newErrors.institution = "Institution is required";
   
+    // Update state only if there are changes
     if (JSON.stringify(errors) !== JSON.stringify(newErrors)) {
       setErrors(newErrors);
     }
@@ -64,6 +78,7 @@ export const SignUp = () => {
       [name]: value,
     }));
   
+    // Clear error when user starts typing
     if (errors[name as keyof FormErrors]) {
       setErrors(prevErrors => ({
         ...prevErrors,
@@ -79,21 +94,48 @@ export const SignUp = () => {
     e.preventDefault();
   
     if (!validateForm()) return;
-    
+  
     setIsLoading(true);
+    setBackendErrors({}); // Clear previous errors
   
     try {
-      await registerUser(formData);
-
-      navigate("/signin", { state: { message: "Account created successfully. Please log in." } });
+      const response = await registerUser(formData); // Call register function
+  
+      console.log("🔹 API Response:", response); // Debugging
+  
+      
+      if (response.status === "error") {
+        console.error("❌ Registration Error:", response.errors);
+      
+        const extractedErrors: FormErrors = {
+          general: response.message || "Registration failed. Please try again.",
+          fullName: response.errors?.fullName?.[0] || "",
+          email: response.errors?.email?.[0] || "",
+          password: response.errors?.password?.[0] || "",
+          confirmPassword: response.errors?.confirmPassword?.[0] || "",
+          institution: response.errors?.institution?.[0] || "",
+        };
+      
+        setBackendErrors(extractedErrors);
+      
+        setTimeout(() => {
+          console.log("✅ Updated errors state:", extractedErrors);
+        }, 100);
+      }
+      else {
+        navigate("/signin", { state: { message: "Account created successfully. Please log in." } });
+      }
     } catch (error) {
-      setErrors({
-        general: (error as any)?.response?.data?.message || "Registration failed",
-      });
-    } finally {
-      setIsLoading(false);
+      console.error("Unexpected error:", error);
+      setBackendErrors({ general: "An unexpected error occurred. Please try again." });
     }
+  
+    setIsLoading(false);
   };
+  
+  
+
+    
   
 
 
@@ -119,10 +161,15 @@ export const SignUp = () => {
           </div>
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="bg-white py-8 px-4 shadow-xl rounded-lg sm:px-10">
-              {errors.general && <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg flex items-center">
-                  <AlertCircle className="h-5 w-5 mr-2" />
-                  {errors.general}
-                </div>}
+            {Object.entries(backendErrors)
+            .filter(([_, value]) => value && value.trim()) // Ensures only non-empty errors are displayed
+            .map(([key, value]) => (
+              <div key={key} className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg flex items-center">
+                <AlertCircle className="h-5 w-5 mr-2" />
+                {value}
+              </div>
+            ))}
+
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">

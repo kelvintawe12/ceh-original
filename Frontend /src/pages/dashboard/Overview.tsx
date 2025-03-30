@@ -12,26 +12,30 @@ export const Overview = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!user?.token) {
+    console.log("🟢 Current user:", user);
+  
+    if (!user || !user.token) {
+      console.error("🚨 Token is missing! Cannot fetch dashboard data.");
       return;
     }
   
     const fetchDashboardData = async () => {
       try {
         const response = await axios.get(`${API_URL}/dashboard`, {
-          headers: { Authorization: `Token ${user?.token}` },
+          headers: { Authorization: `Token ${user.token}` }, // ✅ Explicitly pass the token
         });
         setDashboardData(response.data.data);
       } catch (err) {
+        console.error("❌ Error fetching dashboard:", err);
         setError("Failed to load dashboard data");
       } finally {
         setLoading(false);
       }
     };
-    
   
     fetchDashboardData();
   }, [user]);
+  
 
   const stats = dashboardData
   ? [
