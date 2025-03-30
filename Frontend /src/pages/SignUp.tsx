@@ -226,3 +226,27 @@ export const SignUp = () => {
         </div>
   );
 };
+async function register(fullName: string, email: string, password: string, confirmPassword: string, role: string, institution: string) {
+  const response = await fetch("/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      fullName,
+      email,
+      password,
+      confirmPassword,
+      role,
+      institution,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Failed to register");
+  }
+
+  return await response.json();
+}
+
