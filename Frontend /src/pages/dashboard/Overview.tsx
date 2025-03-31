@@ -22,7 +22,7 @@ export const Overview = () => {
     const fetchDashboardData = async () => {
       try {
         const response = await axios.get(`${API_URL}/dashboard`, {
-          headers: { Authorization: `Token ${user.token}` }, // ✅ Explicitly pass the token
+          headers: { Authorization: `Token ${user.token}` }, // Explicitly pass the token
         });
         setDashboardData(response.data.data);
       } catch (err) {
