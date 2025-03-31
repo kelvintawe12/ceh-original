@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { BarChart, Users, BookOpen, Award } from "lucide-react";
 import axios from "axios";
@@ -12,7 +12,7 @@ export const Overview = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("🟢 Current user:", user);
+    console.log("Current user:", user);
   
     if (!user || !user.token) {
       console.error("🚨 Token is missing! Cannot fetch dashboard data.");
@@ -22,7 +22,7 @@ export const Overview = () => {
     const fetchDashboardData = async () => {
       try {
         const response = await axios.get(`${API_URL}/dashboard`, {
-          headers: { Authorization: `Token ${user.token}` }, // Explicitly pass the token
+          headers: { Authorization: `Token ${user.token}` }, //Explicitly pass the token
         });
         setDashboardData(response.data.data);
       } catch (err) {
