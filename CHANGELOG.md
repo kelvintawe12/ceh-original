@@ -16,6 +16,16 @@ All notable changes to this project will be documented in this file.
 - Add support for multilingual content.
 - Optimize database queries for better performance.
 
+## [1.1.0] - 2025-03-15
+### Changed
+- Improved the dashboard UI for better user experience.
+- Optimized database queries to reduce load time.
+
+### Fixed
+- Resolved issue where project descriptions were not saving correctly.
+- Fixed incorrect event date formatting.
+
+
 
 ## [1.0.0] - 2025-01-01
 ### Added
