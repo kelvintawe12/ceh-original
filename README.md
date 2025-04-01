@@ -68,6 +68,9 @@ To set up the project locally, follow these steps:
 - **Login**: Access your dashboard to view ongoing activities and manage your profile.
 - **Participate**: Join projects, submit ideas, and earn rewards for your contributions.
 
+## API Documwntation
+Our API allows developers to integrate with the Circular Economy Hub. You can find the full documentation here.
+
 ## Contributing
 Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
 
