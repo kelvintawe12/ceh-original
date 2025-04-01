@@ -31,4 +31,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - First stable release of the project.
 
+For a full list of contributors, see [AUTHORS.md](AUTHORS.md).
+
+
 *Please refer to the [Semantic Versioning](https://semver.org/) for versioning guidelines.*
