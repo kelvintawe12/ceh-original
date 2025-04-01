@@ -70,6 +70,12 @@ To set up the project locally, follow these steps:
 
 ## API Documwntation
 Our API allows developers to integrate with the Circular Economy Hub. You can find the full documentation here.
+ - **Example of API Endpoints**
+  GET /api/projects/ - Retrieve all projects
+  POST /api/projects/ - Create a new project
+  GET /api/users/ - Get user details
+
+
 
 ## Contributing
 Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
