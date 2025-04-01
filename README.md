@@ -8,8 +8,10 @@ The Circular Economy Hub is a platform dedicated to fostering collaboration, edu
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
+- [apidocumentation]
 - [Contributing](#contributing)
 - [License](#license)
+- [deployment]
 - [Contact](#contact)
 
 ## Features
