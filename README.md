@@ -1,7 +1,7 @@
 # Circular Economy Hub
 
 ## Overview
-The Circular Economy Hub is a platform designed to facilitate collaboration, education, and impact tracking for circular economy initiatives. This project aims to create a centralized hub for sustainability efforts, enabling users to engage with various projects and events.
+The Circular Economy Hub is a platform dedicated to fostering collaboration, education, and impact measurement within circular economy initiatives. It serves as a centralized space for sustainability efforts, allowing users to connect, participate in projects, and engage with various events.
 
 ## Table of Contents
 - [Features](#features)
