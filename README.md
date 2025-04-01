@@ -75,4 +75,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contact
 For any inquiries, please reach out to us at circularhub@gmail.com.
 
-Thank you for your interest in the Circular Economy Hub!
+Thank you for your interest in the Circular Economy Hub we look foward to getting your feed back!
