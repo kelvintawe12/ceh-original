@@ -76,3 +76,14 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 For any inquiries, please reach out to us at circularhub@gmail.com.
 
 Thank you for your interest in the Circular Economy Hub we look foward to getting your feed back!
+
+
+### **4. Deployment Guide**  .
+
+```markdown
+## Deployment
+To deploy the project on a live server, follow these steps:
+
+1. Set up the backend on a cloud server (e.g., AWS, Heroku).
+2. Set up a PostgreSQL database instead of SQLite3 for scalability.
+3. Deploy the frontend using Vercel or Netlify.
