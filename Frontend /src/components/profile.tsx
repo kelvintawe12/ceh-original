@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useAuth } from '../context/AuthContext';
 import { User, Mail, Building, Award, BookOpen, Calendar, MapPin, Edit, Camera, Shield } from 'lucide-react';
 export const Profile = () => {
