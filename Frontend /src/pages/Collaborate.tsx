@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { MessageSquare, Users, Plus } from 'react-feather';
 import { Joystick } from 'lucide-react';

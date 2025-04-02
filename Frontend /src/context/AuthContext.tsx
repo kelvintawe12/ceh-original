@@ -32,7 +32,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // ✅ Login Function
+  //Login Function
   const login = async (email: string, password: string) => {
     try {
       const response = await api.post(`/account/login`, { email, password });
@@ -48,19 +48,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           localStorage.setItem("access_token", accessToken);
           setUser(userData);
   
-          console.log("✅ User logged in:", userData);
+          console.log("User logged in:", userData);
         } else {
           throw new Error("Invalid response from server");
         }
       }
     } catch (error: any) {
-      console.error("❌ Login Error:", error.response?.data?.message || "Failed to login.");
+      console.error("Login Error:", error.response?.data?.message || "Failed to login.");
       throw new Error(error.response?.data?.message || "Failed to login.");
     }
   };
   
   
-  // ✅ Register Function
+  // Register Function
   const registerUser = async (userData: RegisterUserData) => {
     try {
       const response = await api.post(`/account/register`, {
@@ -73,13 +73,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
   
       if (response.status === 201) {
-        console.log("✅ Registration successful:", response.data.message);
+        console.log("Registration successful:", response.data.message);
         return response.data; // Return full response data
       } else {
         throw new Error(response.data?.message || "Unexpected response from server");
       }
     } catch (error: any) {
-      console.error("❌ Registration Error:", error.response?.data || "Failed to register.");
+      console.error("Registration Error:", error.response?.data || "Failed to register.");
       
       // Return the full error response instead of throwing an error
       return error.response?.data || { message: "Failed to register", status: "error" };
@@ -89,7 +89,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   
   
 
-  // ✅ Logout Function
+  //Logout Function
   const logout = async () => {
     try {
       await api.post(`/account/logout`);
@@ -103,7 +103,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
   
 
-  // ✅ Restore Login on Refresh
+  //Restore Login on Refresh
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -111,13 +111,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.log("🔍 Token before request:", token);
   
         if (!token) {
-          console.error("🚨 Token is missing! Cannot fetch user data.");
+          console.error("Token is missing! Cannot fetch user data.");
           setUser(null);
           return;
         }
   
         const response = await api.get(`/account/session`, {
-          headers: { Authorization: `Token ${token}` } // ✅ Ensure token is sent in header
+          headers: { Authorization: `Token ${token}` } //Ensure token is sent in header
         });
   
         const { data } = response;
@@ -126,15 +126,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   
         if (user && accessToken) {
           localStorage.setItem("access_token", accessToken);
-          setUser({ ...user, token: accessToken }); // ✅ Ensure `token` is attached to user object
-          console.log("✅ User session restored:", { ...user, token: accessToken });
+          setUser({ ...user, token: accessToken }); //Ensure `token` is attached to user object
+          console.log("User session restored:", { ...user, token: accessToken });
         } else {
           throw new Error("Invalid session response");
         }
       } catch (error) {
-        console.error("❌ Failed to restore session:", error);
+        console.error("Failed to restore session:", error);
         setUser(null);
-        localStorage.removeItem("access_token"); // ✅ Clear token if session invalid
+        localStorage.removeItem("access_token"); //Clear token if session invalid
       }
     };
   

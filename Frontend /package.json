@@ -18,7 +18,7 @@
     "react-dom": "^18.3.1",
     "react-feather": "^2.0.10",
     "react-router-dom": "latest",
-    "react-simple-maps": "^1.0.0",
+    "react-simple-maps": "^3.0.0",
     "swiper": "^11.2.5"
   },
   "devDependencies": {
