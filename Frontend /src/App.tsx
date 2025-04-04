@@ -19,6 +19,8 @@ import { Overview } from './pages/dashboard/Overview';
 import Resources from './pages/resources';
 import SustainableLiving from './pages/SustainableLiving';
 import CircularEconomy from './pages/CircularEconomy';
+import CommunityProjects from './pages/CommunityProjects';
+import Recycling from './pages/Recycling';
 export function App() {
   return(
     <AuthProvider>
@@ -35,6 +37,8 @@ export function App() {
               </div>
               } />
             <Route path="/resources" element={<Resources />} />
+            <Route path="/resources/community-projects" element={<CommunityProjects />} />
+            <Route path="/resources/recycling" element={<Recycling />} />
             <Route path="/resources/sustainable-living" element={<SustainableLiving />} />
             <Route path="/resources/circular-economy" element={<CircularEconomy />} />
             <Route path="/signin" element={<SignIn />} />
