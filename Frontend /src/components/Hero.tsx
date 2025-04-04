@@ -22,7 +22,7 @@ export const Hero = () => {
             and act for sustainability.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button onClick={() => navigate('/signup')} className="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-full text-lg font-medium hover:shadow-lg transform hover:-translate-y-1 transition-all">
+            <button onClick={() => navigate('/Resources')} className="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-full text-lg font-medium hover:shadow-lg transform hover:-translate-y-1 transition-all">
               Explore Resources
             </button>
             <button onClick={() => navigate('/signup')} className="px-8 py-4 bg-white text-gray-800 rounded-full text-lg font-medium border border-gray-200 hover:border-green-500 hover:shadow-lg flex items-center justify-center gap-2 transform hover:-translate-y-1 transition-all">

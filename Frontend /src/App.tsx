@@ -16,7 +16,9 @@ import { ThemeProvider } from './context/ThemeContext';
 import { PrivateRoute } from './components/PrivateRoute';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { Overview } from './pages/dashboard/Overview';
-
+import Resources from './pages/resources';
+import SustainableLiving from './pages/SustainableLiving';
+import CircularEconomy from './pages/CircularEconomy';
 export function App() {
   return(
     <AuthProvider>
@@ -32,6 +34,9 @@ export function App() {
                   <Footer />
               </div>
               } />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/resources/sustainable-living" element={<SustainableLiving />} />
+            <Route path="/resources/circular-economy" element={<CircularEconomy />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={
